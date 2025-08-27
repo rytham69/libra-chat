@@ -33,7 +33,7 @@ const Home = () => {
 
   // On mount, fetch chats and set in Redux, and set up socket
   useEffect(() => {
-    axios.get("http://localhost:3000/api/chat", { withCredentials: true })
+    axios.get("https://libra-chat.onrender.com/api/chat", { withCredentials: true })
       .then(response => {
         const loadedChats = response.data.chats.reverse();
         dispatch(setChats(loadedChats));
@@ -43,7 +43,7 @@ const Home = () => {
         console.error('Error fetching chats:', error);
       });
 
-    const tempSocket = io("http://localhost:3000",{
+    const tempSocket = io("https://libra-chat.onrender.com",{
       withCredentials:true
     });
 
@@ -108,7 +108,7 @@ const Home = () => {
     setPrompt(false);
     const title = newChatTitle.trim() ? newChatTitle.trim() : `Chat ${chats.length + 1}`;
     // Send chat title to backend
-    const response = await axios.post("http://localhost:3000/api/chat", {
+    const response = await axios.post("https://libra-chat.onrender.com/api/chat", {
       title
     }, {
       withCredentials: true
@@ -118,7 +118,7 @@ const Home = () => {
 
     // After creating, fetch latest chats and set current chat
     const chatId = response.data.chat._id;
-    const chatsResponse = await axios.get("http://localhost:3000/api/chat", { withCredentials: true });
+    const chatsResponse = await axios.get("https://libra-chat.onrender.com/api/chat", { withCredentials: true });
     const loadedChats = chatsResponse.data.chats.reverse();
     dispatch(setChats(loadedChats));
     dispatch(setCurrentChat(chatId));
@@ -141,7 +141,7 @@ useEffect(() => {
   }, []);
 
   const getMessages = async (chatId) =>{
-  const response = await axios.get(`http://localhost:3000/api/chat/messages/${chatId}`, {withCredentials:true});
+  const response = await axios.get(`https://libra-chat.onrender.com/api/chat/messages/${chatId}`, {withCredentials:true});
   const messages = response.data.messages.map(m => ({
     sender: m.role === 'user' ? 'user' : 'ai',
     text: m.content

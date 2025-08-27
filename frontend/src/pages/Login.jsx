@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     setsubmitting(true)
 
-    axios.post("http://localhost:3000/api/auth/login",{
+    axios.post("https://libra-chat.onrender.com/api/auth/login",{
         email:form.email,
         password:form.password
     },
